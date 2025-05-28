@@ -89,15 +89,17 @@ gallery.innerHTML = galleryMarkup;
 
 gallery.addEventListener('click', (e) => {
   e.preventDefault();
-  const target = e.target.closest('.gallery-link');
-  if (!target) return;
-  const largeImageUrl = target.querySelector('.gallery-image').dataset.source;
+  const clickedElement = e.target;
+  if (clickedElement.nodeName !== 'IMG') return;
  
-const instance = basicLightbox.create(`
-  <img src="${largeImageUrl}" alt="" />
-`);
-
-instance.show();
+  const largeImageURL = clickedElement.dataset.source;
+  showModal(largeImageURL);
 });
 
+function showModal(src) {
+  const instance = basicLightbox.create(`
+    <img src="${src}" alt="" />
+  `);
 
+  instance.show();
+}
